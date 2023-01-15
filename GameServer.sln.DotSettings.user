@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CProgram_0020Files_005CJetBrains_005CJetBrains_0020Rider_00202022_002E3_002E1_005Cjbr_005Cbin_005Capi_002Dms_002Dwin_002Dcore_002Dconsole_002Dl1_002D1_002D0_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CSchool_0020hku_005CJin_005Cbepuphysics2_005CBepuPhysics_005Cbin_005CDebug_005Cnet7_002E0_005CBepuPhysics_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CSchool_0020hku_005CJin_005Cbepuphysics2_005CBepuPhysics_005Cbin_005CDebug_005Cnet7_002E0_005CBepuUtilities_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CSchool_0020hku_005CJin_005CGameServer_005Cbepuphysics2_005CBepuPhysics_005Cbin_005CDebug_005Cnet7_002E0_005CBepuPhysics_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CSchool_0020hku_005CJin_005CGameServer_005Cbepuphysics2_005CLibrary_002Esln/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CSchool_0020hku_005CJin_005CGameServer_005CBepuPhysics_005Cbin_005CDebug_005Cnet7_002E0_005CBepuPhysics_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\School hku\Jin\GameServer\BepuPhysics\bin\Debug\net7.0\BepuPhysics.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	</wpf:ResourceDictionary>

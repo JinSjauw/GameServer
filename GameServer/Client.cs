@@ -48,6 +48,14 @@ public class Client
             ServerSend.Welcome(id, "Welcome to the server!");
         }
 
+        public void Disconnect()
+        {
+            socket.Close();
+            stream = null;
+            receivedData = null;
+            receiveBuffer = null;
+        }
+
         public void SendData(Packet _packet)
         {
             try
@@ -71,6 +79,7 @@ public class Client
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
+                    Server.clients[id].Disconnect();
                     return;
                 }
 
@@ -83,6 +92,7 @@ public class Client
             catch (Exception _ex)
             {
                 Console.WriteLine($"Error Receiving TCP Data: {_ex}");
+                Server.clients[id].Disconnect();
             }
         }
         private bool HandleData(byte[] _data)
@@ -149,6 +159,11 @@ public class Client
             ServerSend.UDPTest(id);
         }
 
+        public void Disconnect()
+        {
+            endPoint = null;
+        }
+        
         public void SendData(Packet _packet)
         {
             Server.SendUDPData(endPoint, _packet);
@@ -192,5 +207,15 @@ public class Client
                 ServerSend.SpawnPlayer(_client.id, player);
             }
         }
+    }
+
+    public void Disconnect()
+    {
+        Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected");
+
+        player = null;
+        
+        tcp.Disconnect();
+        udp.Disconnect();
     }
 }
