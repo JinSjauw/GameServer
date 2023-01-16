@@ -9,7 +9,7 @@ public class ServerHandle
         int _clientIdCheck = _packet.ReadInt();
         string _username = _packet.ReadString();
         
-        Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
+        Console.WriteLine($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient} {_username}.");
         if (_fromClient != _clientIdCheck)
         {
             Console.WriteLine($"Player \"{_username}\" (ID:{_fromClient}) has assume the wrong client ID ({_clientIdCheck})!");
@@ -22,20 +22,23 @@ public class ServerHandle
     {
         string _msg = _packet.ReadString();
         
-        Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_msg}");
+        //Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_msg}");
     }
 
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
+        int _tick = _packet.ReadInt();
+        //Console.WriteLine($"Current Tick: {tick}");
         bool[] _inputs = new bool[_packet.ReadInt()];
         for (int i = 0; i < _inputs.Length; i++)
         {
             _inputs[i] = _packet.ReadBool();
         }
-        //Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_packet.ReadBool()}");
-
+        
+        //Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_packet.Length()}");
         Quaternion _rotation = _packet.ReadQuaternion();
-
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        //Save input packets
+        
+        Server.clients[_fromClient].player.SetInput(_tick, _inputs, _rotation);
     }
 }

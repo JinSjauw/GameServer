@@ -30,6 +30,7 @@ namespace GameServer
         private List<byte> buffer;
         private byte[] readableBuffer;
         private int readPos;
+        private int tick;
 
         /// <summary>Creates a new empty packet (without an ID).</summary>
         public Packet()
@@ -45,6 +46,15 @@ namespace GameServer
             buffer = new List<byte>(); // Intitialize buffer
             readPos = 0; // Set readPos to 0
 
+            Write(_id); // Write packet id to the buffer
+        }
+        
+        public Packet(int _id, int _tick)
+        {
+            buffer = new List<byte>(); // Intitialize buffer
+            readPos = 0; // Set readPos to 0
+        
+            Write(_tick);
             Write(_id); // Write packet id to the buffer
         }
 

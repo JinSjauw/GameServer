@@ -95,6 +95,7 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
             _packet.Write(_player.id);
+            _packet.Write(_player.tick);
             _packet.Write(_player.position);
             //Console.Write(_player.position);
             SendUDPDataToAll(_packet);
