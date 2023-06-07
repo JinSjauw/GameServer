@@ -13,7 +13,7 @@ public class Player
     public Quaternion rotation;
 
     
-    private float moveSpeed = 5f / Constants.MS_PER_TICK;
+    private float moveSpeed = 3f / Constants.MS_PER_TICK;
     private bool[] inputs;
 
     public Player(int _id, string _username, Vector3 _spawnPosition)
