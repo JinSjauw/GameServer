@@ -96,7 +96,7 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.position);
-            //Console.Write(_player.position);
+            
             SendUDPDataToAll(_packet);
         }
     }

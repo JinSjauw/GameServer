@@ -28,7 +28,7 @@ class Program
             while (nextLoop < DateTime.Now)
             {
                 GameLogic.Update();
-
+                
                 nextLoop = nextLoop.AddMilliseconds(Constants.MS_PER_TICK);
 
                 if (nextLoop > DateTime.Now)

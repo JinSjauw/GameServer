@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 
 namespace GameServer;
 
@@ -28,11 +29,11 @@ public class ServerHandle
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
         bool[] _inputs = new bool[_packet.ReadInt()];
+        //Console.WriteLine($"Input Length: {_inputs.Length}");
         for (int i = 0; i < _inputs.Length; i++)
         {
             _inputs[i] = _packet.ReadBool();
         }
-        //Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_packet.ReadBool()}");
 
         Quaternion _rotation = _packet.ReadQuaternion();
 

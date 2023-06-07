@@ -183,6 +183,21 @@ public class Client
                 }
             });
         }
+
+        /*public void ProcessData(Packet _packetData)
+        {
+            int _packetLength = _packetData.ReadInt();
+            byte[] _packetBytes = _packetData.ReadBytes(_packetLength);
+            
+            ThreadManager.ExecuteOnMainThread(() =>
+            {
+                using (Packet _packet = new Packet(_packetBytes))
+                {
+                    int _packetId = _packet.ReadInt();
+                    Server.packetHandlers[_packetId](id, _packet);
+                }
+            });
+        }*/
     }
 
     public void SendIntoGame(string _playerName)

@@ -11,7 +11,8 @@ public class GameLogic
                 _client.player.Update();
             }
         }
-        
+        //Console.WriteLine($"Current Tick: {Server.currentTick}");
+
         ThreadManager.UpdateMain();
     }
 }
