@@ -12,10 +12,11 @@ public class Server
     public delegate void PacketHandler(int _fromClient, Packet _packet);
 
     public static Dictionary<int, PacketHandler> packetHandlers;
+    public static uint serverTick;
 
     private static TcpListener tcpListener;
     private static UdpClient udpListener;
-
+    
     public static void Start(int _maxPlayers, int _port)
     {
         MaxPlayers = _maxPlayers;

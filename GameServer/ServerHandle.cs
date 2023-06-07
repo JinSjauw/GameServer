@@ -28,6 +28,7 @@ public class ServerHandle
 
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
+        uint clientTick = _packet.ReadUint();
         bool[] _inputs = new bool[_packet.ReadInt()];
         //Console.WriteLine($"Input Length: {_inputs.Length}");
         for (int i = 0; i < _inputs.Length; i++)
@@ -36,7 +37,9 @@ public class ServerHandle
         }
 
         Quaternion _rotation = _packet.ReadQuaternion();
-
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        
+        //Store inputs of the client in a buffer;
+        
+        Server.clients[_fromClient].player.SetInput(clientTick, _inputs, _rotation);
     }
 }

@@ -28,6 +28,7 @@ class Program
             while (nextLoop < DateTime.Now)
             {
                 GameLogic.Update();
+                Server.serverTick++;
                 
                 nextLoop = nextLoop.AddMilliseconds(Constants.MS_PER_TICK);
 

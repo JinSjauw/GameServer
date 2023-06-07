@@ -7,10 +7,12 @@ public class Player
 {
     public int id;
     public string username;
-
+    public uint tick;
+    
     public Vector3 position;
     public Quaternion rotation;
 
+    
     private float moveSpeed = 5f / Constants.MS_PER_TICK;
     private bool[] inputs;
 
@@ -60,11 +62,12 @@ public class Player
         
         //Console.WriteLine(_moveDirection);
         ServerSend.PlayerPosition(this);
-        ServerSend.PlayerRotation(this);
+        //ServerSend.PlayerRotation(this);
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(uint _clientTick, bool[] _inputs, Quaternion _rotation)
     {
+        tick = _clientTick;
         inputs = _inputs;
         rotation = _rotation;
     }
