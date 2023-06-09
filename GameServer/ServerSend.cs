@@ -99,6 +99,8 @@ public class ServerSend
             _packet.Write(_player.position);
             _packet.Write(_player.rotation);
             
+            Console.WriteLine($"PacketNumber: {_player.tick} + From: {_player.id}");
+            
             SendUDPDataToAll(_packet);
         }
     }

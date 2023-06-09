@@ -37,7 +37,7 @@ public class ServerHandle
         }
         Quaternion _rotation = _packet.ReadQuaternion();
         //Store inputs of the client in a buffer;
-        
+        //Console.WriteLine($"PacketNumber: {clientTick} + From: {_fromClient}");
         Server.clients[_fromClient].player.SetInput(clientTick, _inputs, _rotation);
     }
 }

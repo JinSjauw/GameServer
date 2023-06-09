@@ -12,7 +12,6 @@ public class GameLogic
             }
         }
         //Console.WriteLine($"Current Tick: {Server.currentTick}");
-
         ThreadManager.UpdateMain();
     }
 }
