@@ -30,14 +30,15 @@ public class ServerHandle
     {
         uint clientTick = _packet.ReadUint();
         bool[] _inputs = new bool[_packet.ReadInt()];
-        //Console.WriteLine($"Input Length: {_inputs.Length}");
         for (int i = 0; i < _inputs.Length; i++)
         {
             _inputs[i] = _packet.ReadBool();
         }
         Quaternion _rotation = _packet.ReadQuaternion();
-        //Store inputs of the client in a buffer;
-        //Console.WriteLine($"PacketNumber: {clientTick} + From: {_fromClient}");
-        Server.clients[_fromClient].player.SetInput(clientTick, _inputs, _rotation);
+
+        if (Server.clients.ContainsKey(_fromClient))
+        {
+            Server.clients[_fromClient].player.SetInput(clientTick, _inputs, _rotation);
+        }
     }
 }
