@@ -1,7 +1,20 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 
 namespace GameServer;
+
+public struct WorldState
+{
+    public uint serverTick;
+    public List<Player> players;
+
+    public WorldState(uint _currentTick)
+    {
+        serverTick = _currentTick;
+        players = new List<Player>();
+    }
+}
 
 public class Server
 {
@@ -12,13 +25,18 @@ public class Server
     public delegate void PacketHandler(int _fromClient, Packet _packet);
 
     public static Dictionary<int, PacketHandler> packetHandlers;
+
+    public static Stopwatch stopwatch = new Stopwatch();
     public static uint serverTick;
+    public static float serverTime;
 
     private static TcpListener tcpListener;
     private static UdpClient udpListener;
-    
+
     public static void Start(int _maxPlayers, int _port)
     {
+        stopwatch.Start();
+        
         MaxPlayers = _maxPlayers;
         Port = _port;
         
@@ -30,7 +48,7 @@ public class Server
 
         udpListener = new UdpClient(Port);
         udpListener.BeginReceive(UDPReceiveCallback, null);
-        
+
         Console.WriteLine($"Server started on {Port}");
     }
 
@@ -119,6 +137,7 @@ public class Server
             { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
             { (int)ClientPackets.udpTestReceive, ServerHandle.UDPTestReceived },
             { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
+            { (int)ClientPackets.timeRequest, ServerHandle.TimeRequest},
         };
         Console.WriteLine("Initialized packets");
     }

@@ -14,6 +14,7 @@ namespace GameServer
         spawnPlayer = 3,
         playerRotation = 4,
         playerPosition = 5,
+        timeRequest = 6,
         
     }
 
@@ -23,6 +24,7 @@ namespace GameServer
         welcomeReceived = 1,
         udpTestReceive = 2,
         playerMovement = 3,
+        timeRequest = 4,
     }
 
     public class Packet : IDisposable
@@ -30,7 +32,7 @@ namespace GameServer
         private List<byte> buffer;
         private byte[] readableBuffer;
         private int readPos;
-
+        
         /// <summary>Creates a new empty packet (without an ID).</summary>
         public Packet()
         {

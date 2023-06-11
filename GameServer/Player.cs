@@ -32,11 +32,11 @@ public class Player
     public int id;
     public string username;
     public uint tick;
-
-    public Queue<InputPayload> inputBuffer;
+    
     public Vector3 position;
     public Quaternion rotation;
-    
+
+    private Queue<InputPayload> inputBuffer;
     private float moveSpeed = 3f / Constants.MS_PER_TICK;
     //private bool[] inputs;
 

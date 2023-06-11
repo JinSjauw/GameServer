@@ -62,6 +62,7 @@ public class ServerSend
         {
             _packet.Write(_msg);
             _packet.Write(_toClient);
+            _packet.Write(Server.serverTime);
 
             SendTCPData(_toClient, _packet);
         }
@@ -77,6 +78,15 @@ public class ServerSend
         }
     }
 
+    public static void TimeRequest(int _toClient)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.timeRequest))
+        {
+            _packet.Write(Server.serverTime);
+            SendUDPData(_toClient, _packet);
+        }
+    }
+    
     public static void SpawnPlayer(int _toClient, Player _player)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
@@ -96,10 +106,11 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.tick);
+            _packet.Write(Server.serverTick);
             _packet.Write(_player.position);
             _packet.Write(_player.rotation);
             
-            Console.WriteLine($"PacketNumber: {_player.tick} + From: {_player.id}");
+            //Console.WriteLine($"PacketNumber: {_player.tick} + From: {_player.id}");
             
             SendUDPDataToAll(_packet);
         }

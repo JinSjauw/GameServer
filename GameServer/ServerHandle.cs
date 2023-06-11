@@ -26,6 +26,11 @@ public class ServerHandle
         Console.WriteLine($"Received UDP Packet crom client. MESSAGE: {_msg}");
     }
 
+    public static void TimeRequest(int _fromClient, Packet _packet)
+    {
+        ServerSend.TimeRequest(_fromClient);
+    }
+    
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
         uint clientTick = _packet.ReadUint();
