@@ -106,25 +106,14 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.tick);
-            _packet.Write(Server.serverTick);
+            _packet.Write(_player.timeSent);
+            _packet.Write(Server.serverTime);
             _packet.Write(_player.position);
             _packet.Write(_player.rotation);
             
             //Console.WriteLine($"PacketNumber: {_player.tick} + From: {_player.id}");
             
             SendUDPDataToAll(_packet);
-        }
-    }
-    
-    public static void PlayerRotation(Player _player)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
-        {
-            _packet.Write(_player.id);
-            _packet.Write(_player.tick);
-            _packet.Write(_player.rotation);
-            
-            SendUDPDataToAll(_player.id, _packet);
         }
     }
 }

@@ -28,12 +28,16 @@ public class ServerHandle
 
     public static void TimeRequest(int _fromClient, Packet _packet)
     {
-        ServerSend.TimeRequest(_fromClient);
+        if (Server.clients.ContainsKey(_fromClient))
+        {
+            ServerSend.TimeRequest(_fromClient);
+        }
     }
     
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
-        uint clientTick = _packet.ReadUint();
+        uint _clientTick = _packet.ReadUint();
+        float _timeSent = _packet.ReadFloat();
         bool[] _inputs = new bool[_packet.ReadInt()];
         for (int i = 0; i < _inputs.Length; i++)
         {
@@ -43,7 +47,7 @@ public class ServerHandle
 
         if (Server.clients.ContainsKey(_fromClient))
         {
-            Server.clients[_fromClient].player.SetInput(clientTick, _inputs, _rotation);
+            Server.clients[_fromClient].player.SetClientData(_clientTick, _timeSent, _inputs, _rotation);
         }
     }
 }

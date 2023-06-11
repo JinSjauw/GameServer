@@ -32,6 +32,7 @@ public class Player
     public int id;
     public string username;
     public uint tick;
+    public float timeSent;
     
     public Vector3 position;
     public Quaternion rotation;
@@ -99,7 +100,7 @@ public class Player
         position += _moveDirection * moveSpeed;
     }
 
-    public void SetInput(uint _clientTick, bool[] _inputs, Quaternion _rotation)
+    public void SetClientData(uint _clientTick, float _timeSent, bool[] _inputs, Quaternion _rotation)
     {
         inputBuffer.Enqueue(new InputPayload()
         {
@@ -107,5 +108,6 @@ public class Player
             inputs = _inputs,
             rotation = _rotation
         });
+        timeSent = _timeSent;
     }
 }
