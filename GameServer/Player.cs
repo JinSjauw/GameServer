@@ -36,6 +36,8 @@ public class Player
     
     public Vector3 position;
     public Quaternion rotation;
+    public Vector3 playerSize;
+
 
     private Queue<InputPayload> inputBuffer;
     private float moveSpeed = 3f / Constants.MS_PER_TICK;
@@ -95,8 +97,11 @@ public class Player
         rotation = _rotation;
         Vector3 _forward = Vector3.Transform(new Vector3(0, 0, 1), rotation);
         Vector3 _right = Vector3.Normalize(Vector3.Cross(_forward, new Vector3(0, 1, 0)));
-
+        
         Vector3 _moveDirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
+
+        //Check for collisions
+
         position += _moveDirection * moveSpeed;
     }
 
