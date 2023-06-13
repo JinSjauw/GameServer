@@ -38,10 +38,9 @@ public class Player
     public Quaternion rotation;
     public Vector3 playerSize;
 
-
     private Queue<InputPayload> inputBuffer;
+    private CollisionDetection collisionDetection;
     private float moveSpeed = 3f / Constants.MS_PER_TICK;
-    //private bool[] inputs;
 
     public Player(int _id, string _username, Vector3 _spawnPosition)
     {
@@ -50,6 +49,9 @@ public class Player
         position = _spawnPosition;
         rotation =  Quaternion.Identity;
         inputBuffer = new Queue<InputPayload>();
+        collisionDetection = new CollisionDetection();
+
+        playerSize = new Vector3(1, 1, 1);
     }
 
     public void Update()
@@ -101,8 +103,10 @@ public class Player
         Vector3 _moveDirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
 
         //Check for collisions
-
-        position += _moveDirection * moveSpeed;
+        if (!collisionDetection.DetectCollision(position + _moveDirection * moveSpeed))
+        {
+            position += _moveDirection * moveSpeed;
+        }
     }
 
     public void SetClientData(uint _clientTick, float _timeSent, bool[] _inputs, Quaternion _rotation)

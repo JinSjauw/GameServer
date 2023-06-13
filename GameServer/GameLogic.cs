@@ -2,9 +2,9 @@
 
 public class GameLogic
 {
-    private static WorldState[] worldStateHistory = new WorldState[Constants.BUFFER_SIZE];
+    //private static WorldState[] worldStateHistory = new WorldState[Constants.BUFFER_SIZE];
     
-    public static void Update()
+    public void Update()
     {
         //WorldState currentWorldState = new WorldState(Server.serverTick);
         
@@ -17,7 +17,7 @@ public class GameLogic
             }
         }
 
-        uint bufferIndex = Server.serverTick % Constants.BUFFER_SIZE;
+        /*uint bufferIndex = Server.serverTick % Constants.BUFFER_SIZE;*/
         //worldStateHistory[bufferIndex] = currentWorldState;
 
         //If player shoots

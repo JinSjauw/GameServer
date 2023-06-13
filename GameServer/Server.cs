@@ -25,7 +25,6 @@ public class Server
     public delegate void PacketHandler(int _fromClient, Packet _packet);
 
     public static Dictionary<int, PacketHandler> packetHandlers;
-
     public static Stopwatch stopwatch = new Stopwatch();
     public static uint serverTick;
     public static float serverTime;
@@ -33,13 +32,15 @@ public class Server
     private static TcpListener tcpListener;
     private static UdpClient udpListener;
 
+    private static GameLogic gameLogic;
+    
     public static void Start(int _maxPlayers, int _port)
     {
         stopwatch.Start();
         
         MaxPlayers = _maxPlayers;
         Port = _port;
-        
+
         InitializeServerData();
         
         tcpListener = new TcpListener(IPAddress.Any, Port);
@@ -48,7 +49,7 @@ public class Server
 
         udpListener = new UdpClient(Port);
         udpListener.BeginReceive(UDPReceiveCallback, null);
-
+        
         Console.WriteLine($"Server started on {Port}");
     }
 

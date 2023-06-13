@@ -15,6 +15,7 @@ public class Client
     public Client(int _clientId)
     {
         id = _clientId;
+
         tcp = new TCP(id);
         udp = new UDP(id);
     }
@@ -183,33 +184,19 @@ public class Client
                 }
             });
         }
-
-        /*public void ProcessData(Packet _packetData)
-        {
-            int _packetLength = _packetData.ReadInt();
-            byte[] _packetBytes = _packetData.ReadBytes(_packetLength);
-            
-            ThreadManager.ExecuteOnMainThread(() =>
-            {
-                using (Packet _packet = new Packet(_packetBytes))
-                {
-                    int _packetId = _packet.ReadInt();
-                    Server.packetHandlers[_packetId](id, _packet);
-                }
-            });
-        }*/
     }
 
     public void SendIntoGame(string _playerName)
     {
         player = new Player(id, _playerName, new Vector3(0, 0, 0));
-
+        
         foreach (Client _client in Server.clients.Values)
         {
             if (_client.player != null)
             {
                 if (_client.id != id)
                 {
+                    //Choose random spawnPoint
                     ServerSend.SpawnPlayer(id, _client.player);
                 }
             }

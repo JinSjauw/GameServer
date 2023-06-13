@@ -95,6 +95,7 @@ public class ServerSend
             _packet.Write(_player.username);
             _packet.Write(_player.position);
             _packet.Write(_player.rotation);
+            //Spawn Point
             
             SendTCPData(_toClient, _packet);
         }
