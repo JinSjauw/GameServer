@@ -17,9 +17,9 @@ public class CollisionDetection
     
     private bool AABB(Vector3 _position, StaticCollider _collider)
     {
-        if (_position.X < _collider.x + _collider.width &&
+        if (_position.X < _collider.x + _collider.width + .5f &&
             _position.X + .5 > _collider.x &&
-            _position.Z < _collider.y + _collider.height &&
+            _position.Z < _collider.y + _collider.height + .5f &&
             _position.Z + .5 > _collider.y)
         {
             return true;
@@ -41,10 +41,7 @@ public class CollisionDetection
 
                 Vector3 newPosition = new Vector3(collider.x - _position.X, 0, collider.y - _position.Z);
                 Console.WriteLine(newPosition);
-                //Return difference of position and collider
-                //That is the new position
-                
-                
+
                 return true;
             }
         }
