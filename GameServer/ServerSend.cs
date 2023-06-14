@@ -117,4 +117,33 @@ public class ServerSend
             SendUDPDataToAll(_packet);
         }
     }
+
+    public static void SpawnProjectile(Projectile _projectile)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnProjectile))
+        {
+            _packet.Write(_projectile.clientID);
+            _packet.Write(Server.serverTime);
+            _packet.Write(_projectile.projectileID);
+            _packet.Write(_projectile.position);
+            _packet.Write(_projectile.direction);
+            _packet.Write(_projectile.velocity);
+            
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void UpdateProjectile(Projectile _projectile)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.updateProjectile))
+        {
+            _packet.Write(_projectile.clientID);
+            _packet.Write(Server.serverTime);
+            _packet.Write(_projectile.projectileID);
+            _packet.Write(_projectile.position);
+            _packet.Write(_projectile.direction);
+            
+            SendUDPDataToAll(_packet);
+        }
+    }
 }

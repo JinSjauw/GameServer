@@ -40,7 +40,7 @@ public class Player
 
     private Queue<InputPayload> inputBuffer;
     private CollisionDetection collisionDetection;
-    private float moveSpeed = 3f / Constants.MS_PER_TICK;
+    private float moveSpeed = 2f / Constants.MS_PER_TICK;
 
     public Player(int _id, string _username, Vector3 _spawnPosition)
     {
@@ -101,15 +101,15 @@ public class Player
         Vector3 _right = Vector3.Normalize(Vector3.Cross(_forward, new Vector3(0, 1, 0)));
         
         Vector3 _moveDirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
-
+        Vector3 _newPosition = position + _moveDirection * moveSpeed * Constants.MS_PER_SECOND;
         //Check for collisions
-        if (!collisionDetection.DetectCollision(position + _moveDirection * moveSpeed))
+        if (!collisionDetection.DetectCollision(_newPosition))
         {
-            position += _moveDirection * moveSpeed;
+            position = _newPosition;
         }
     }
 
-    public void SetClientData(uint _clientTick, float _timeSent, bool[] _inputs, Quaternion _rotation)
+    public void SetPlayerData(uint _clientTick, float _timeSent, bool[] _inputs, Quaternion _rotation)
     {
         inputBuffer.Enqueue(new InputPayload()
         {
@@ -118,5 +118,10 @@ public class Player
             rotation = _rotation
         });
         timeSent = _timeSent;
+    }
+
+    public void SpawnProjectile(Projectile _projectile)
+    {
+        ServerSend.SpawnProjectile(_projectile);
     }
 }

@@ -15,7 +15,8 @@ namespace GameServer
         playerRotation = 4,
         playerPosition = 5,
         timeRequest = 6,
-        
+        spawnProjectile = 7,
+        updateProjectile = 8,
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -25,6 +26,7 @@ namespace GameServer
         udpTestReceive = 2,
         playerMovement = 3,
         timeRequest = 4,
+        playerShoot = 5,
     }
 
     public class Packet : IDisposable

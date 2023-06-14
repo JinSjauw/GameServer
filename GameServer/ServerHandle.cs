@@ -45,7 +45,29 @@ public class ServerHandle
 
         if (Server.clients.ContainsKey(_fromClient))
         {
-            Server.clients[_fromClient].player.SetClientData(_clientTick, _timeSent, _inputs, _rotation);
+            Server.clients[_fromClient].player.SetPlayerData(_clientTick, _timeSent, _inputs, _rotation);
+        }
+    }
+
+    public static void PlayerShoot(int _fromClient, Packet _packet)
+    {
+        uint _clientTick = _packet.ReadUint();
+        float _timeSent = _packet.ReadFloat();
+        Vector3 _position = _packet.ReadVector3();
+        Vector3 _direction = _packet.ReadVector3();
+        float _velocity = _packet.ReadFloat();
+            
+        //Calculate collision from projectile with angle + position + velocity;
+        //Spawn Bullet
+        //Communicate to all clients to spawn bullet with(_fromClient)
+        //Create new projectile Instance
+        //Inject instance to all clients
+        Projectile _projectile = new Projectile(_fromClient,_position, _direction, _velocity);
+        ProjectileManager.Add(_projectile);
+        
+        if (Server.clients.ContainsKey(_fromClient))
+        {
+            Server.clients[_fromClient].player.SpawnProjectile(_projectile);
         }
     }
 }

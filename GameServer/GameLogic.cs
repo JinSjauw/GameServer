@@ -3,11 +3,11 @@
 public class GameLogic
 {
     //private static WorldState[] worldStateHistory = new WorldState[Constants.BUFFER_SIZE];
-    
+
     public void Update()
     {
         //WorldState currentWorldState = new WorldState(Server.serverTick);
-        
+
         foreach (Client _client in Server.clients.Values)
         {
             if (_client.player != null)
@@ -16,6 +16,8 @@ public class GameLogic
                 //currentWorldState.players.Add(_client.player);
             }
         }
+        
+        ProjectileManager.Update();
 
         /*uint bufferIndex = Server.serverTick % Constants.BUFFER_SIZE;*/
         //worldStateHistory[bufferIndex] = currentWorldState;

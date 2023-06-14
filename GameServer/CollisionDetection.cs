@@ -24,7 +24,6 @@ public class CollisionDetection
         {
             return true;
         }
-        
         return false;
     }
     
