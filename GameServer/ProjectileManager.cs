@@ -32,6 +32,7 @@ public class ProjectileManager
             {
                 projectilesList.Remove(projectile);
             }
+            hitList.Clear();
         }
     }
 }

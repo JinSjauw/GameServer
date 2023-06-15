@@ -63,7 +63,10 @@ public class Projectile
                 hitClientID = hitCollider.playerID;
                 Console.WriteLine("Hit player: " + hitClientID);
                 //ServerSend DamagePlayer
-                Server.clients[hitClientID].player.TakeDamage(clientID, 20);
+                if (Server.clients.ContainsKey(hitClientID))
+                {
+                    Server.clients[hitClientID].player.TakeDamage(clientID, 20);
+                }
             }
             ServerSend.UpdateProjectile(this);
             hasHit = true;
