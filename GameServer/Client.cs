@@ -190,6 +190,7 @@ public class Client
     {
         //Choose random spawnPoint
         player = new Player(id, _playerName, new Vector3(0, 0, 0));
+        Server.playerColliders.Add(player.playerCollider);
         
         foreach (Client _client in Server.clients.Values)
         {

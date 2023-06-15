@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace GameServer;
 
 using Newtonsoft.Json.Linq;
@@ -7,6 +9,7 @@ public class LevelDataManager
     //Read the data
     //Store Data in a dictionary
     private static LevelData levelData;
+    private static Random random = new Random();
     
     public static void ReadLevelData(int _levelIndex)
     {
@@ -30,6 +33,12 @@ public class LevelDataManager
     public static LevelData GetLevelData()
     {
         return levelData;
+    }
+
+    public static Vector2 GetRandomSpawnPoint()
+    {
+        int spawnPointIndex = random.Next(levelData.spawnPoints.Count);
+        return levelData.spawnPoints[spawnPointIndex];
     }
 }
 
@@ -61,8 +70,9 @@ public class Collider
 
     public float width;
     public float height;
-
+    
     public ColliderType colliderType;
+    public int playerID;
 
     public Collider(float _x, float _y, float _width, float _height, ColliderType _colliderType)
     {
@@ -75,6 +85,6 @@ public class Collider
 
     public override string ToString()
     {
-        return $"X: {x}  Y: {y} Type: {colliderType}";
+        return $"ID: {playerID} X: {x}  Y: {y} Type: {colliderType}";
     }
 }

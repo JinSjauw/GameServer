@@ -1,4 +1,6 @@
-﻿namespace GameServer;
+﻿using System.Numerics;
+
+namespace GameServer;
 
 public class ServerSend
 {
@@ -140,8 +142,53 @@ public class ServerSend
             _packet.Write(_projectile.clientID);
             _packet.Write(Server.serverTime);
             _packet.Write(_projectile.projectileID);
+            _packet.Write(_projectile.hitClientID);
             _packet.Write(_projectile.position);
 
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void PlayerDamage(int _hitClient, int _damage)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerDamage))
+        {
+            _packet.Write(_hitClient);
+            _packet.Write(Server.serverTime);
+            _packet.Write(_damage);
+            
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void PlayerDie(int _clientID)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerDie))
+        {
+            _packet.Write(_clientID);
+            _packet.Write(Server.serverTime);
+            
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void PlayerRespawn(int _clientID, Vector2 _spawnPoint)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerRespawn))
+        {
+             _packet.Write(_clientID);
+             _packet.Write(Server.serverTime);
+             _packet.Write(_spawnPoint);
+            
+             SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void PlayerScoreKill(int _clientId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerScoreKill))
+        {
+            _packet.Write(_clientId);
             SendUDPDataToAll(_packet);
         }
     }

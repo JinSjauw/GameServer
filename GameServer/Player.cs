@@ -39,8 +39,13 @@ public class Player
     public Collider playerCollider;
     public CollisionDetection collisionDetection;
 
+    public int kills = 0;
+    public int deaths = 0;
+    
     private Queue<InputPayload> inputBuffer;
     private float moveSpeed = 5f;
+    private float maxHP = 100;
+    private float HP;
 
     public Player(int _id, string _username, Vector3 _spawnPosition)
     {
@@ -51,6 +56,8 @@ public class Player
         inputBuffer = new Queue<InputPayload>();
         collisionDetection = new CollisionDetection();
         playerCollider = new Collider(_spawnPosition.X, _spawnPosition.Z, 1, 1, ColliderType.player);
+        playerCollider.playerID = _id;
+        HP = maxHP;
     }
 
     public void Update()
@@ -122,4 +129,27 @@ public class Player
         });
         timeSent = _timeSent;
     }
+
+    public void TakeDamage(int _clientID, int _damage)
+    {
+        HP -= _damage;
+        ServerSend.PlayerDamage(id, _damage);
+        
+        if (HP <= 0)
+        {
+            inputBuffer.Clear();
+            ServerSend.PlayerDie(id);
+            deaths++;
+            Vector2 newSpawnPoint = LevelDataManager.GetRandomSpawnPoint();
+            position = new Vector3(newSpawnPoint.X, 0, newSpawnPoint.Y);
+            ServerSend.PlayerRespawn(id, newSpawnPoint);
+            
+            if (Server.clients.ContainsKey(_clientID))
+            {
+                Server.clients[_clientID].player.kills++;
+                ServerSend.PlayerScoreKill(_clientID);
+            }
+        }
+    }
+
 }

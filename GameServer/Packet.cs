@@ -17,6 +17,10 @@ namespace GameServer
         timeRequest = 6,
         spawnProjectile = 7,
         updateProjectile = 8,
+        playerDamage = 9,
+        playerDie = 10,
+        playerRespawn = 11,
+        playerScoreKill = 12,
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -176,6 +180,13 @@ namespace GameServer
             Write(_value.Length); // Add the length of the string to the packet
             buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
         }
+        /// <summary>Adds a Vector2 to the packet.</summary>
+        /// <param name="_value">The string to add.</param>
+        public void Write(Vector2 _value)
+        {
+            Write(_value.X);
+            Write(_value.Y);
+        }
         /// <summary>Adds a Vector3 to the packet.</summary>
         /// <param name="_value">The string to add.</param>
         public void Write(Vector3 _value)
@@ -184,6 +195,7 @@ namespace GameServer
             Write(_value.Y);
             Write(_value.Z);
         }
+
         /// <summary>Adds a Quaternion to the packet.</summary>
         /// <param name="_value">The string to add.</param>
         public void Write(Quaternion _value)

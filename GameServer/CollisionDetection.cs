@@ -7,11 +7,10 @@ public class CollisionDetection
 {
     //Check for collisions with the help of the Collider Data
     private List<Collider> colliders;
-
+    private Collider lastHit = null;
+    
     public CollisionDetection()
     {
-        //Divide world into cells
-        //Detect collision into 
         colliders = LevelDataManager.GetLevelData().colliders;
     }
     
@@ -40,13 +39,36 @@ public class CollisionDetection
                 Console.WriteLine("Detected Collision!");
                 Console.WriteLine($"{colliderB}");
                 Console.WriteLine($"Player: {_colliderA}");
-                
-                /*Vector3 newPosition = new Vector3(colliderB.x - _colliderA.x, 0, colliderB.y - _colliderA.y);
-                Console.WriteLine(newPosition);*/
-
+                lastHit = colliderB;
                 return true;
             }
         }
         return false;
+    }
+    
+    public bool DetectCollision(Collider _colliderA, List<Collider> _colliderList)
+    {
+        foreach (Collider colliderB in _colliderList)
+        {
+            if (colliderB == _colliderA)
+            {
+                continue;
+            }
+            if (AABB(_colliderA, colliderB))
+            {
+                /*Console.WriteLine("Detected Collision!");
+                Console.WriteLine($"B: {colliderB}");
+                Console.WriteLine($"A: {_colliderA}");*/
+                lastHit = colliderB;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
+    public Collider GetLastHit()
+    {
+        return lastHit;
     }
 }
