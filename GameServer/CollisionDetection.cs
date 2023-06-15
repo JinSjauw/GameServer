@@ -6,7 +6,7 @@ namespace GameServer;
 public class CollisionDetection
 {
     //Check for collisions with the help of the Collider Data
-    private List<StaticCollider> colliders;
+    private List<Collider> colliders;
 
     public CollisionDetection()
     {
@@ -15,31 +15,34 @@ public class CollisionDetection
         colliders = LevelDataManager.GetLevelData().colliders;
     }
     
-    private bool AABB(Vector3 _position, StaticCollider _collider)
+    private bool AABB(Collider _colliderA, Collider _colliderB)
     {
-        if (_position.X < _collider.x + _collider.width + .5f &&
-            _position.X + .5 > _collider.x &&
-            _position.Z < _collider.y + _collider.height + .5f &&
-            _position.Z + .5 > _collider.y)
+        if (_colliderA.x < _colliderB.x + _colliderB.width + _colliderA.width / 2 &&
+            _colliderA.x + _colliderA.width / 2 > _colliderB.x &&
+            _colliderA.y < _colliderB.y + _colliderB.height + _colliderA.height / 2 &&
+            _colliderA.y + _colliderA.height / 2 > _colliderB.y)
         {
             return true;
         }
         return false;
     }
-    
-    public bool DetectCollision(Vector3 _position)
+
+    public bool DetectCollision(Collider _colliderA)
     {
-        foreach (StaticCollider collider in colliders)
+        foreach (Collider colliderB in colliders)
         {
-            
-            if (AABB(_position, collider))
+            if (colliderB == _colliderA)
+            {
+                continue;
+            }
+            if (AABB(_colliderA, colliderB))
             {
                 Console.WriteLine("Detected Collision!");
-                Console.WriteLine($"{collider.x} {collider.y} + {collider.width} + {collider.height}");
-                Console.WriteLine($"Player: {_position}");
-
-                Vector3 newPosition = new Vector3(collider.x - _position.X, 0, collider.y - _position.Z);
-                Console.WriteLine(newPosition);
+                Console.WriteLine($"{colliderB}");
+                Console.WriteLine($"Player: {_colliderA}");
+                
+                /*Vector3 newPosition = new Vector3(colliderB.x - _colliderA.x, 0, colliderB.y - _colliderA.y);
+                Console.WriteLine(newPosition);*/
 
                 return true;
             }

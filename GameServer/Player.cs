@@ -36,11 +36,11 @@ public class Player
     
     public Vector3 position;
     public Quaternion rotation;
-    public Vector3 playerSize;
+    public Collider playerCollider;
+    public CollisionDetection collisionDetection;
 
     private Queue<InputPayload> inputBuffer;
-    private CollisionDetection collisionDetection;
-    private float moveSpeed = 2f / Constants.MS_PER_TICK;
+    private float moveSpeed = 5f;
 
     public Player(int _id, string _username, Vector3 _spawnPosition)
     {
@@ -50,8 +50,7 @@ public class Player
         rotation =  Quaternion.Identity;
         inputBuffer = new Queue<InputPayload>();
         collisionDetection = new CollisionDetection();
-
-        playerSize = new Vector3(1, 1, 1);
+        playerCollider = new Collider(_spawnPosition.X, _spawnPosition.Z, 1, 1, ColliderType.player);
     }
 
     public void Update()
@@ -103,9 +102,13 @@ public class Player
         Vector3 _moveDirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
         Vector3 _newPosition = position + _moveDirection * moveSpeed * Constants.MS_PER_SECOND;
         //Check for collisions
-        if (!collisionDetection.DetectCollision(_newPosition))
+        Collider newCollider = new Collider(_newPosition.X, _newPosition.Z, 1, 1, ColliderType.player);
+        
+        if (!collisionDetection.DetectCollision(newCollider))
         {
             position = _newPosition;
+            playerCollider.x = _newPosition.X;
+            playerCollider.y = _newPosition.Z;
         }
     }
 
@@ -118,10 +121,5 @@ public class Player
             rotation = _rotation
         });
         timeSent = _timeSent;
-    }
-
-    public void SpawnProjectile(Projectile _projectile)
-    {
-        ServerSend.SpawnProjectile(_projectile);
     }
 }

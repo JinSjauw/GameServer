@@ -141,8 +141,7 @@ public class ServerSend
             _packet.Write(Server.serverTime);
             _packet.Write(_projectile.projectileID);
             _packet.Write(_projectile.position);
-            _packet.Write(_projectile.direction);
-            
+
             SendUDPDataToAll(_packet);
         }
     }

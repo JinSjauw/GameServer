@@ -62,12 +62,13 @@ public class ServerHandle
         //Communicate to all clients to spawn bullet with(_fromClient)
         //Create new projectile Instance
         //Inject instance to all clients
-        Projectile _projectile = new Projectile(_fromClient,_position, _direction, _velocity);
+        Projectile _projectile = new Projectile(_fromClient, _position, _direction, _velocity);
         ProjectileManager.Add(_projectile);
         
         if (Server.clients.ContainsKey(_fromClient))
         {
-            Server.clients[_fromClient].player.SpawnProjectile(_projectile);
+            //Server.clients[_fromClient].player.SpawnProjectile(_projectile);
+            ServerSend.SpawnProjectile(_projectile);
         }
     }
 }

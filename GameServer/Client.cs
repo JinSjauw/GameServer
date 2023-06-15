@@ -186,8 +186,9 @@ public class Client
         }
     }
 
-    public void SendIntoGame(string _playerName)
+    public Player SendIntoGame(string _playerName)
     {
+        //Choose random spawnPoint
         player = new Player(id, _playerName, new Vector3(0, 0, 0));
         
         foreach (Client _client in Server.clients.Values)
@@ -196,7 +197,7 @@ public class Client
             {
                 if (_client.id != id)
                 {
-                    //Choose random spawnPoint
+                    //You spawn in all other existing clients 
                     ServerSend.SpawnPlayer(id, _client.player);
                 }
             }
@@ -206,9 +207,12 @@ public class Client
         {
             if (_client.player != null)
             {
+                //Spawn new client for other clients
                 ServerSend.SpawnPlayer(_client.id, player);
             }
         }
+
+        return player;
     }
 
     public void Disconnect()
