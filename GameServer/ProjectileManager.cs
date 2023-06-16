@@ -19,9 +19,12 @@ public class ProjectileManager
         {
             foreach (Projectile projectile in projectilesList)
             {
-                if (projectile.Update())
+                if (projectile != null)
                 {
-                    hitList.Add(projectile);
+                    if (projectile.Update())
+                    {
+                        hitList.Add(projectile);
+                    }
                 }
             }
         }

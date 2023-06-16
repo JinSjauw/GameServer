@@ -36,6 +36,8 @@ public class Player
     
     public Vector3 position;
     public Quaternion rotation;
+    public Vector2 inputDirection;
+
     public Collider playerCollider;
     public CollisionDetection collisionDetection;
 
@@ -71,7 +73,8 @@ public class Player
         {
             InputPayload _inputPayload = inputBuffer.Dequeue();
             tick = _inputPayload.tick;
-            Move(GetInput(_inputPayload.inputs), _inputPayload.rotation);
+            inputDirection = GetInput(_inputPayload.inputs);
+            Move(inputDirection, _inputPayload.rotation);
             ServerSend.PlayerPosition(this);
         }
     }
@@ -143,6 +146,7 @@ public class Player
             Vector2 newSpawnPoint = LevelDataManager.GetRandomSpawnPoint();
             position = new Vector3(newSpawnPoint.X, 0, newSpawnPoint.Y);
             ServerSend.PlayerRespawn(id, newSpawnPoint);
+            ServerSend.PlayerPosition(this);
             
             if (Server.clients.ContainsKey(_clientID))
             {
