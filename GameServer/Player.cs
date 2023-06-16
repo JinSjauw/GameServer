@@ -145,6 +145,7 @@ public class Player
             deaths++;
             Vector2 newSpawnPoint = LevelDataManager.GetRandomSpawnPoint();
             position = new Vector3(newSpawnPoint.X, 0, newSpawnPoint.Y);
+            HP = maxHP;
             ServerSend.PlayerRespawn(id, newSpawnPoint);
             ServerSend.PlayerPosition(this);
             

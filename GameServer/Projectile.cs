@@ -65,7 +65,11 @@ public class Projectile
                 //ServerSend DamagePlayer
                 if (Server.clients.ContainsKey(hitClientID) && hitClientID > 0)
                 {
-                    Server.clients[hitClientID].player.TakeDamage(clientID, 45);
+                    Player player = Server.clients[hitClientID].player;
+                    if (player != null)
+                    {
+                        player.TakeDamage(clientID, 45);
+                    }
                 }
             }
             ServerSend.UpdateProjectile(this);

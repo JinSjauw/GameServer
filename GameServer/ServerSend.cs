@@ -179,6 +179,7 @@ public class ServerSend
              _packet.Write(_clientID);
              _packet.Write(Server.serverTime);
              _packet.Write(_spawnPoint);
+             _packet.Write(100);
             
              SendUDPDataToAll(_packet);
         }
